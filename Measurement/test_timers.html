@@ -1,0 +1,17 @@
+<html>
+  <head>
+      <script>
+          var start = new Date();
+          localStorage.setItem("time",start);
+          localStorage.setItem("rtime",start.valueOf());
+
+          var other = new Date(localStorage.getItem("time"));
+          var rother = new Date(parseInt(localStorage.getItem("rtime")));
+
+          alert(start.valueOf()+" "+other.valueOf()+"\n"+start.valueOf()+" "+rother.valueOf());
+      </script>
+  </head>
+  <body>
+
+  </body>
+</html> 

@@ -1,0 +1,66 @@
+<html>
+<head>
+<script>
+ 
+  // Refresh 10 times and store data in csv file
+  let iterations=10;
+  
+  function savetime()
+  {
+      // Importantly, we measure first and then store the value so we do not poison the well with our measurements  
+      var measurement=new Date().valueOf();
+            
+      // The following code must execute after the measurement process
+      cnt=parseInt(localStorage.getItem("Counter"));
+ 
+      if(cnt>iterations){
+          alert("Finished!"+cnt);
+          alert(localStorage.getItem("theData"));
+      }else{
+          if(isNaN(cnt)) cnt=0;
+        
+          if(cnt==0){
+              str="data:text/csv;charset=utf-8,";
+              localStorage.setItem("Oldval",measurement);
+          }else{
+              // Read old value and update next old value
+              var old=parseInt(localStorage.getItem("Oldval"));
+              localStorage.setItem("Oldval",measurement);
+              var delta=measurement-old;
+              var str=localStorage.getItem("theData");
+              
+              str+=measurement+","+old+","+delta+"\n";    // If we have a search term or for example number of posts found we also save this here
+          }
+
+          // Increase counter and save data to local storage
+          cnt++;
+          localStorage.setItem("Counter",cnt);
+          localStorage.setItem("theData",str);
+        
+          // Reload page!
+          location.reload(); 
+      }
+  }
+  
+  function getData()
+  {
+      var str=localStorage.getItem("theData");
+ 
+      // Make anchor and click it!
+      var anchor = document.createElement("a");
+      anchor.setAttribute("href", encodeURI(str));
+      anchor.setAttribute("download", "my_data.csv");
+      anchor.innerHTML= "Click Here to download";
+      document.body.appendChild(anchor);
+      anchor.click();
+  }
+ 
+</script>
+</head>
+<body onload="savetime();">
+  
+  <input type="button" value="getData" onclick="getData()" >
+  <input type="button" value="resetCounter" onclick="localStorage.setItem('Counter',0);alert(localStorage.getItem('Counter'));" >
+    
+</body>
+</html>

@@ -1,0 +1,71 @@
+<html>
+<head>
+<script>
+ 
+  // Refresh 10 times and store data in csv file
+  let iterations=10;
+  
+  function savetime()
+  {
+      // Importantly, we measure first and then store the value in local storage so we do not poison the well with our measurements  
+      let old=performance.now();
+      
+      // This is what we measure -- generate roughly 100.000-200.000 random values and sort the list.
+      var arr=[];
+      var it=100000+Math.round(Math.random()*100000);
+      for(var i=0;i<it;i++){
+          arr.push(Math.round(Math.random()*5000));
+      }
+      arr.sort();
+      // End of code we measure
+      
+      let measurement=performance.now();
+    
+      // The following code must execute after the measurement process
+      cnt=parseInt(localStorage.getItem("Counter"));
+ 
+      if(cnt>iterations){
+          alert("Finished!"+cnt);
+      }else{
+          if(isNaN(cnt)) cnt=0;
+ 
+          var delta=measurement-old;
+          var str=localStorage.getItem("theData");
+          str+=old+","+measurement+","+delta+"\n";
+        
+          if(cnt==0){
+              str="data:text/csv;charset=utf-8,";
+          }
+        
+          // Increase counter and save data to local storage
+          cnt++;
+          localStorage.setItem("Counter",cnt);
+          localStorage.setItem("theData",str);
+        
+          // Reload page!
+          location.reload(); 
+      }
+  }
+  
+  function getData()
+  {
+      var str=localStorage.getItem("theData");
+ 
+      // Make anchor and click it!
+      var anchor = document.createElement("a");
+      anchor.setAttribute("href", encodeURI(str));
+      anchor.setAttribute("download", "my_data.csv");
+      anchor.innerHTML= "Click Here to download";
+      document.body.appendChild(anchor);
+      anchor.click();
+  }
+ 
+</script>
+</head>
+<body onload="savetime();">
+  
+  <input type="button" value="getData" onclick="getData()" >
+  <input type="button" value="resetCounter" onclick="localStorage.setItem('Counter',0);alert(localStorage.getItem('Counter'));" >
+    
+</body>
+</html>
