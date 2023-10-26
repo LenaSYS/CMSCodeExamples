@@ -1,0 +1,36 @@
+<html>
+<head>
+<script>
+function generate()
+{
+    var searchfields=document.getElementsByClassName("search-field");
+    for(const searchfield of searchfields){
+        searchfield.value="Snus";
+    }
+
+    var searchforms=document.getElementsByClassName("search-form");
+    for(const searchform of searchforms){
+        searchform.submit();
+    }
+}
+
+function processform(event)
+{
+  event.preventDefault();
+  const data = new FormData(event.target);
+
+  console.log(data);
+
+  return false;
+}
+
+</script>
+</head>
+<body onload="generate()">
+    <form class="search-form" onsubmit="processform(event)" method="post" action="hello">
+        <div>InpA:<input name="TextA" type="text" class="search-field"></div>
+        <div>InpB:<input name="TextB" type="text" class="search-field"></div>
+        <input type="submit" value="Submit Form" id="submitbutton">
+    </form>
+</body>
+</html>

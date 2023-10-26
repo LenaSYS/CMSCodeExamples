@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Context free grammar example</title>
+    <style>
+        .button {
+            width:150px;height:30px;border-radius:5px;box-shadow:2px 2px 5px #888;background-color:#775886;color:#FFF;line-height:30px;text-align:center;
+        }
+    </style>
+    <script src="https://raw.githack.com/LenaSYS/ContextFreeLib/master/js/contextfreegrammar.js"></script>
+    <script src="https://raw.githack.com/LenaSYS/Random-Number-Generator/master/seededrandom.js"></script>
+    <script>
+        function makeSentences()
+        {
+            var str="";
+            for(var i=0;i<Math.round(Math.random()*40);i++){
+                sentence=generate_sentence(0.5,0.5,0.5,0.5,null,null,null,null,null,null,null);
+                str+=sentence;
+            }
+            document.getElementById('clobber').value=str;
+            console.log(str);
+        }
+
+        function startup()
+        {
+            // Update counter
+            var counter = localStorage.getItem("counter") // GM.getValue( name, default ) - if nothing stored default to 0
+            counter++;
+            localStorage.setItem("counter",counter);
+
+            // Generate sentence
+            makeSentences();
+
+            // Navigate away
+            if(counter<10){
+                location.href="test_postcounter.html"
+            }else{
+                alert("Finished: "+counter+" posts");
+            }
+        }
+
+
+    </script>
+  </head>
+  <body onload="startup();">
+    <h1>Context free grammar example</h1>
+    <textarea cols="80" rows="25" id="clobber"></textarea>
+    <div class="button" onClick="localStorage.setItem('counter',0)">Reset Counter</div>
+  </body>
+</html>

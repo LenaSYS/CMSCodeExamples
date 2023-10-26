@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Context free grammar example</title>
+    <style>
+        .button {
+            width:150px;height:30px;border-radius:5px;box-shadow:2px 2px 5px #888;background-color:#775886;color:#FFF;line-height:30px;text-align:center;
+        }
+    </style>
+    <script src="https://raw.githack.com/LenaSYS/ContextFreeLib/master/js/contextfreegrammar.js"></script>
+    <script src="https://raw.githack.com/LenaSYS/Random-Number-Generator/master/seededrandom.js"></script>
+    <script>
+        function makeSentences()
+        {
+            document.getElementById('clobber').value='';
+            for(var i=0;i<Math.round(Math.random()*40);i++){
+                sentence=generate_sentence(0.5,0.5,0.5,0.5,null,null,null,null,null,null,null);
+                document.getElementById('clobber').value+=sentence;
+            }
+        }
+    </script>
+  </head>
+  <body>
+    <h1>Context free grammar example</h1>
+    <textarea cols="80" rows="25" id="clobber"></textarea>
+    <div class="button" onClick="makeSentences();">Generate scentences</div>
+  </body>
+</html>
