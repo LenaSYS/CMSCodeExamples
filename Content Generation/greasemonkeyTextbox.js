@@ -1,10 +1,18 @@
 // ==UserScript==
-// @name        GM - Example 2
-// @namespace   tomten
-// @description Set your login name as default for LenaSYS
-// @include     https://dugga.iit.his.se/DuggaSys/*
+// @name        replaceKurskodSCIO
+// @namespace   plorf
+// @include     https://scio.his.se/portal
 // @version     1
-// @grant       none
+// @require     https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js
+// @grant       GM_log
 // ==/UserScript==
  
-document.getElementById("username").value = "brom";
+var searchfields=document.getElementsByClassName("search-field");
+for(const searchfield of searchfields){
+    searchfield.value="Snus";
+}
+
+var searchforms=document.getElementsByClassName("search-form");
+for(const searchform of searchfields){
+    searchform.submit();
+}
