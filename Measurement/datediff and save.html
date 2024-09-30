@@ -48,9 +48,11 @@
  
       // Make anchor and click it!
       var anchor = document.createElement("a");
-      anchor.setAttribute("href", encodeURI(str));
-      anchor.setAttribute("download", "my_data.csv");
-      anchor.innerHTML= "Click Here to download";
+      var dataBlob = new Blob([str],{type:"text/csv"});
+      var objUrl = URL.createObjectURL(dataBlob);
+      anchor.href = objUrl;
+      anchor.innerHTML ="With createObjectURL";
+      anchor.download = "data.csv";
       document.body.appendChild(anchor);
       anchor.click();
   }
